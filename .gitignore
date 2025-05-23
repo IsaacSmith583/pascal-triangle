@@ -1,0 +1,10 @@
+# build files, main executable
+build/*
+pascal
+*.out
+
+# os generated files
+*.DS_STORE
+
+# vscode
+.vscode
