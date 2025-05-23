@@ -45,9 +45,7 @@ class Camera{
 };
 
 u_int32_t getColourFromVal(float val, float max, bool logarithmic) {
-    // std::max((float) 0, log2(256*abs(val)/max)) * 32
-    // now we use log of log
-    int grad = logarithmic ? std::max((float) 0, log2(log2(255*val/max)))*255/3 : (abs(val)/max)*255;
+    int grad = logarithmic ? std::max((float) 0, log2(256*abs(val)/max)) * 32 : (abs(val)/max)*255;
 
     u_int8_t r,g,b;
 
@@ -85,7 +83,12 @@ float calcPascalTriangle(float realx, float realy, Camera cam, bool continuous, 
     float trix = realx + (realy/2)*showTri;
     float triy = realy;
 
-    if(((trix <= triy && trix >= 0) | negatives) && ((trix-floor(trix) < threshold && triy-floor(triy) < threshold) | continuous)) {
+    if(!continuous) {
+        trix = floor(trix);
+        triy = floor(triy);
+    }
+
+    if(((trix <= triy && trix >= 0) | negatives)) {
         float o = nChooseR(triy, trix);
         return abs(o) == INFINITY ? 0 : o;
     }
@@ -103,7 +106,7 @@ void drawPascalTriangle(int sx, int sy, Camera cam, Screen s, float *vals, float
     float trix = realx + (realy/2)*showTri;
     float triy = realy;
 
-    if(((trix <= triy && trix >= 0) | negatives) && ((trix-floor(trix) < threshold && triy-floor(triy) < threshold) | continuous)) {
+    if(((trix <= triy && trix >= 0) | negatives)) {
         s.putPixel(sx, sy, getColourFromVal(*(vals+sx+(sy*s.width)), max, logarithmic));
     }
     else if(realx == 0 || realy == 0) {
@@ -131,7 +134,7 @@ int main() {
     bool negatives = false;
 
     float limit = 1000;
-    float limitSpeed = 10;
+    float limitSpeed = 500;
     
     Camera camera;
 
