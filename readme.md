@@ -12,3 +12,7 @@ This is a 'continuous' Pascal's triangle visualiser. It usees the gamma function
 
 ## Build
 This project uses SDL2 for rendering, so you will need that to run it. Otherwise, the makefile is included, so you should need to do is run 'make' in the directory and the run the executable with './pascal' (not sure if this works with windows...).
+
+![image 1](./screenshots/continuous.png)
+![image 2](./screenshots/logarithmic.png)
+![image 3](./screenshots/negative_numbers.png)
