@@ -130,7 +130,7 @@ int main() {
     bool showTri = true;
     bool negatives = false;
 
-    float limit = 1000000000000000000;
+    float limit = 1000;
     float limitSpeed = 10;
     
     Camera camera;
